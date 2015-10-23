@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Snapechat.iml" filepath="$PROJECT_DIR$/Snapechat.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/snapechat.iml" filepath="$PROJECT_DIR$/snapechat.iml" />
     </modules>
   </component>
 </project>
