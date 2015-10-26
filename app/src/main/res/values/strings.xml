@@ -3,4 +3,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="snapechat">snapechat</string>
+    <string name="randomLabel">Random</string>
+    <string name="nextLabel">Next</string>
+    <string name="previousLabel">Previous</string>
 </resources>
