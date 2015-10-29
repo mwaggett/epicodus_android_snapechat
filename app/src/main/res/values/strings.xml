@@ -6,4 +6,7 @@
     <string name="randomLabel">Random</string>
     <string name="nextLabel">Next</string>
     <string name="previousLabel">Previous</string>
+    <string name="title_activity_show_thumbnails">ShowThumbnailsActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>
