@@ -8,6 +8,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import io.github.mwaggett.snapechat.R;
+import io.github.mwaggett.snapechat.models.Snape;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
@@ -17,7 +18,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return Snape.all().size();
     }
 
     // not needed
@@ -43,17 +44,7 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(mThumbIds[position]);
+        imageView.setImageResource(Snape.all().get(position).getImageSrc());
         return imageView;
     }
-
-    private Integer[] mThumbIds = {
-            //R.drawable.snape1,
-            R.drawable.snape2,
-            R.drawable.snape3,
-            R.drawable.snape4,
-            R.drawable.snape5,
-            R.drawable.snape6,
-            R.drawable.snape7
-    };
 }

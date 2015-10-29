@@ -6,7 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import io.github.mwaggett.snapechat.SnapeLib;
+import java.util.ArrayList;
+import java.util.Random;
+
+import io.github.mwaggett.snapechat.models.Snape;
 
 public class ShowPhotosActivity extends AppCompatActivity {
 
@@ -14,8 +17,9 @@ public class ShowPhotosActivity extends AppCompatActivity {
     private Button mNextButton;
     private Button mPreviousButton;
     private Button mRandomButton;
-    private SnapeLib mSnapeLib;
-    private int mCurrentSnape;
+    private ArrayList<Snape> mSnapeLib;
+    private int mClickedSnapePosition;
+    private Snape mCurrentSnape;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,15 +30,17 @@ public class ShowPhotosActivity extends AppCompatActivity {
         mNextButton = (Button) findViewById(R.id.nextButton);
         mPreviousButton = (Button) findViewById(R.id.previousButton);
         mRandomButton = (Button) findViewById(R.id.randomButton);
-        mSnapeLib = new SnapeLib();
-        mCurrentSnape = mSnapeLib.getSnapes().get(getIntent().getExtras().getInt("selected_snape"));
+        mSnapeLib = (ArrayList) Snape.all();
+        mClickedSnapePosition = getIntent().getExtras().getInt("selected_snape");
+        mCurrentSnape = mSnapeLib.get(mClickedSnapePosition);
 
         setLayoutContent();
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentSnape = mSnapeLib.nextSnape(mCurrentSnape);
+                mClickedSnapePosition++;
+                mCurrentSnape = mSnapeLib.get(mClickedSnapePosition);
                 setLayoutContent();
             }
         });
@@ -42,7 +48,8 @@ public class ShowPhotosActivity extends AppCompatActivity {
         mPreviousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentSnape = mSnapeLib.previousSnape(mCurrentSnape);
+                mClickedSnapePosition--;
+                mCurrentSnape = mSnapeLib.get(mClickedSnapePosition);
                 setLayoutContent();
             }
         });
@@ -50,14 +57,16 @@ public class ShowPhotosActivity extends AppCompatActivity {
         mRandomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentSnape = mSnapeLib.randomSnape();
+                Random randomGenerator = new Random();
+                mClickedSnapePosition = randomGenerator.nextInt(mSnapeLib.size());
+                mCurrentSnape = mSnapeLib.get(mClickedSnapePosition);
                 setLayoutContent();
             }
         });
     }
 
     private void setLayoutContent() {
-        mImage.setImageResource(mCurrentSnape);
+        mImage.setImageResource(mCurrentSnape.getImageSrc());
     }
 
 }
