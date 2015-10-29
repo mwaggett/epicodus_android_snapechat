@@ -8,7 +8,7 @@ public class SnapeLib {
 
     public SnapeLib() {
         mSnapes = new ArrayList<Integer>();
-        mSnapes.add(R.drawable.snape1);
+        //mSnapes.add(R.drawable.snape1);
         mSnapes.add(R.drawable.snape2);
         mSnapes.add(R.drawable.snape3);
         mSnapes.add(R.drawable.snape4);

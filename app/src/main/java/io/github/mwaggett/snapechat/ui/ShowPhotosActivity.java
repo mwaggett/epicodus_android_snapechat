@@ -27,7 +27,7 @@ public class ShowPhotosActivity extends AppCompatActivity {
         mPreviousButton = (Button) findViewById(R.id.previousButton);
         mRandomButton = (Button) findViewById(R.id.randomButton);
         mSnapeLib = new SnapeLib();
-        mCurrentSnape = mSnapeLib.randomSnape();
+        mCurrentSnape = mSnapeLib.getSnapes().get(getIntent().getExtras().getInt("selected_snape"));
 
         setLayoutContent();
 

@@ -1,5 +1,6 @@
 package io.github.mwaggett.snapechat.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import io.github.mwaggett.snapechat.R;
+import io.github.mwaggett.snapechat.ShowPhotosActivity;
 import io.github.mwaggett.snapechat.adapters.ImageAdapter;
 
 public class ShowThumbnailsActivity extends AppCompatActivity {
@@ -24,8 +26,9 @@ public class ShowThumbnailsActivity extends AppCompatActivity {
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                Toast.makeText(ShowThumbnailsActivity.this, "" + position,
-                        Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ShowThumbnailsActivity.this, ShowPhotosActivity.class);
+                intent.putExtra("selected_snape", position);
+                startActivity(intent);
             }
         });
     }
