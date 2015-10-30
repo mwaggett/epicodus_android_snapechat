@@ -1,5 +1,6 @@
 package io.github.mwaggett.snapechat;
 
+import android.content.Intent;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import io.github.mwaggett.snapechat.models.Snape;
+import io.github.mwaggett.snapechat.ui.NewMessageActivity;
 
 public class ShowPhotosActivity extends AppCompatActivity {
 
@@ -61,6 +63,15 @@ public class ShowPhotosActivity extends AppCompatActivity {
                 mClickedSnapePosition = randomGenerator.nextInt(mSnapeLib.size());
                 mCurrentSnape = mSnapeLib.get(mClickedSnapePosition);
                 setLayoutContent();
+            }
+        });
+
+        mImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShowPhotosActivity.this, NewMessageActivity.class);
+                intent.putExtra("snape", mCurrentSnape);
+                startActivity(intent);
             }
         });
     }

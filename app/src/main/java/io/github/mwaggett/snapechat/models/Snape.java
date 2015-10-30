@@ -5,10 +5,11 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Table(name = "Snapes", id="_id")
-public class Snape extends Model {
+public class Snape extends Model implements Serializable {
 
     @Column(name = "ImageSrc")
     private int mImageSrc;

@@ -19,18 +19,18 @@ public class ShowThumbnailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
 //      To populate database with images:
-//        Snape newSnape2 = new Snape(R.drawable.snape2);
-//        newSnape2.save();
-//        Snape newSnape3 = new Snape(R.drawable.snape3);
-//        newSnape3.save();
-//        Snape newSnape4 = new Snape(R.drawable.snape4);
-//        newSnape4.save();
-//        Snape newSnape5 = new Snape(R.drawable.snape5);
-//        newSnape5.save();
-//        Snape newSnape6 = new Snape(R.drawable.snape6);
-//        newSnape6.save();
-//        Snape newSnape7 = new Snape(R.drawable.snape7);
-//        newSnape7.save();
+        Snape newSnape2 = new Snape(R.drawable.snape2);
+        newSnape2.save();
+        Snape newSnape3 = new Snape(R.drawable.snape3);
+        newSnape3.save();
+        Snape newSnape4 = new Snape(R.drawable.snape4);
+        newSnape4.save();
+        Snape newSnape5 = new Snape(R.drawable.snape5);
+        newSnape5.save();
+        Snape newSnape6 = new Snape(R.drawable.snape6);
+        newSnape6.save();
+        Snape newSnape7 = new Snape(R.drawable.snape7);
+        newSnape7.save();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_thumbnails);
