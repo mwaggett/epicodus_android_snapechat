@@ -1,4 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="io.github.mwaggett.snapechat.ui.ShowThumbnailsActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/snapechat"
+        android:id="@+id/sendToBanner"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:background="#44a888" />
+
     <GridView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/gridview"
@@ -10,5 +27,6 @@
         android:horizontalSpacing="10dp"
         android:stretchMode="columnWidth"
         android:gravity="center"
-        tools:context="io.github.mwaggett.snapechat.ui.ShowThumbnailsActivity"
-        />
+              android:layout_below="@+id/sendToBanner"
+              android:layout_alignParentBottom="true"/>
+</RelativeLayout>

@@ -30,6 +30,13 @@ public class Message extends Model {
         super();
     }
 
+    public Message(Snape snape, User sender) {
+        super();
+        mSnape = snape;
+        mSender = sender;
+        mCreatedAt = new Date().getTime();
+    }
+
     public Message(Snape snape, Quote quote, User sender, User receiver) {
         super();
         mSnape = snape;
