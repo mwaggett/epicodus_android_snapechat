@@ -41,7 +41,11 @@ public class ShowPhotosActivity extends AppCompatActivity {
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickedSnapePosition++;
+                if (mClickedSnapePosition == mSnapeLib.size()-1) {
+                    mClickedSnapePosition = 0;
+                } else {
+                    mClickedSnapePosition++;
+                }
                 mCurrentSnape = mSnapeLib.get(mClickedSnapePosition);
                 setLayoutContent();
             }
@@ -50,7 +54,11 @@ public class ShowPhotosActivity extends AppCompatActivity {
         mPreviousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickedSnapePosition--;
+                if (mClickedSnapePosition == 0) {
+                    mClickedSnapePosition = mSnapeLib.size()-1;
+                } else {
+                    mClickedSnapePosition--;
+                }
                 mCurrentSnape = mSnapeLib.get(mClickedSnapePosition);
                 setLayoutContent();
             }
