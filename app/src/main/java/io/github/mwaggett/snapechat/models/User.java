@@ -29,4 +29,12 @@ public class User extends Model {
     public static List<User> all() {
         return new Select().from(User.class).execute();
     }
+
+    public List<Message> sentMessages() {
+        return getMany(Message.class, "Sender");
+    }
+
+    public List<Message> receivedMessages() {
+        return getMany(Message.class, "Receiver");
+    }
 }
