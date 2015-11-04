@@ -24,6 +24,7 @@ public class NewMessageActivity extends ListActivity {
 
     public static final String TAG = NewMessageActivity.class.getSimpleName();
 
+    private User mUser;
     private Message mNewMessage;
     private Snape mSelectedSnape;
     private ArrayList<User> mContacts;
@@ -39,6 +40,9 @@ public class NewMessageActivity extends ListActivity {
         setContentView(R.layout.activity_new_message);
         ButterKnife.bind(this);
 
+        mUser = new User("me");
+        mUser.save();
+
         mContacts = (ArrayList) User.all();
         mContactsListView = (ListView) getListView();
         mAdapter = new ContactsAdapter(this, mContacts);
@@ -46,7 +50,7 @@ public class NewMessageActivity extends ListActivity {
 
         mSelectedSnape = (Snape) getIntent().getSerializableExtra("snape");
         mSnapeImage.setImageResource(mSelectedSnape.getImageSrc());
-        mNewMessage = new Message(mSelectedSnape, new User("me"));
+        mNewMessage = new Message(mSelectedSnape, mUser);
 
         mSelectContactsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,8 +74,8 @@ public class NewMessageActivity extends ListActivity {
             @Override
             public void onClick(View v) {
                 mNewMessage.save();
-//                Intent intent = new Intent(NewMessageActivity.this, ShowMessagesActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(NewMessageActivity.this, ShowMessagesActivity.class);
+                startActivity(intent);
             }
         });
     }

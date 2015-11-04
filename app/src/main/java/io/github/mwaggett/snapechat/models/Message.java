@@ -5,6 +5,7 @@ import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -64,6 +65,11 @@ public class Message extends Model {
 
     public long getCreatedAt() {
         return mCreatedAt;
+    }
+
+    public String getFormattedCreatedAt() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM d, yyyy 'at' h:mm a");
+        return formatter.format(mCreatedAt);
     }
 
     public void setCreatedAt(long createdAt) {

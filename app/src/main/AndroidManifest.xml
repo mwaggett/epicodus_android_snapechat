@@ -37,6 +37,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="io.github.mwaggett.snapechat.ShowPhotosActivity" />
         </activity>
+        <activity
+            android:name=".ui.ShowMessagesActivity"
+            android:label="@string/title_activity_show_messages" >
+        </activity>
     </application>
 
 </manifest>
