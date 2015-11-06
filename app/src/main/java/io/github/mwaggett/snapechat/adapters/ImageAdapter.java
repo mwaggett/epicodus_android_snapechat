@@ -7,18 +7,23 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 import io.github.mwaggett.snapechat.R;
 import io.github.mwaggett.snapechat.models.Snape;
 
 public class ImageAdapter extends BaseAdapter {
     private Context mContext;
+    private ArrayList<Snape> mSnapes;
 
-    public ImageAdapter(Context context) {
+    public ImageAdapter(Context context, ArrayList<Snape> snapes) {
         mContext = context;
+        mSnapes = snapes;
     }
 
     public int getCount() {
-        return Snape.all().size();
+        return mSnapes.size();
     }
 
     // not needed
@@ -44,7 +49,7 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
-        imageView.setImageResource(Snape.all().get(position).getImageSrc());
+        imageView.setImageResource(mSnapes.get(position).getImageSrc());
         return imageView;
     }
 }

@@ -8,32 +8,28 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
+import com.parse.ParseObject;
+
+import java.util.ArrayList;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import io.github.mwaggett.snapechat.R;
-import io.github.mwaggett.snapechat.ShowPhotosActivity;
 import io.github.mwaggett.snapechat.adapters.ImageAdapter;
 import io.github.mwaggett.snapechat.models.Snape;
 import io.github.mwaggett.snapechat.models.User;
 
 public class ShowThumbnailsActivity extends AppCompatActivity {
 
+    ArrayList<Snape> mSnapes;
+    ImageAdapter mAdapter;
+    @Bind(R.id.gridview) GridView gridview;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-//      To populate database with images:
-//        Snape newSnape2 = new Snape(R.drawable.snape2);
-//        newSnape2.save();
-//        Snape newSnape3 = new Snape(R.drawable.snape3);
-//        newSnape3.save();
-//        Snape newSnape4 = new Snape(R.drawable.snape4);
-//        newSnape4.save();
-//        Snape newSnape5 = new Snape(R.drawable.snape5);
-//        newSnape5.save();
-//        Snape newSnape6 = new Snape(R.drawable.snape6);
-//        newSnape6.save();
-//        Snape newSnape7 = new Snape(R.drawable.snape7);
-//        newSnape7.save();
-
-//      To populate database with contacts:
+//
+////      To populate database with contacts:
 //        User contact1 = new User("Zoe");
 //        contact1.save();
 //        User contact2 = new User("Gracie");
@@ -51,9 +47,21 @@ public class ShowThumbnailsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_thumbnails);
+        ButterKnife.bind(this);
 
-        GridView gridview = (GridView) findViewById(R.id.gridview);
-        gridview.setAdapter(new ImageAdapter(this));
+        Snape.all(new Runnable() {
+            @Override
+            public void run() {
+                Snape.all(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSnapes = (ArrayList<Snape>) Snape.getAllSnapes();
+                        mAdapter = new ImageAdapter(ShowThumbnailsActivity.this, mSnapes);
+                        gridview.setAdapter(mAdapter);
+                    }
+                });
+            }
+        });
 
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,

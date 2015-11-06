@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.parse.ParseUser;
+
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -40,17 +42,30 @@ public class NewMessageActivity extends ListActivity {
         setContentView(R.layout.activity_new_message);
         ButterKnife.bind(this);
 
+        //mUser = new User(ParseUser.getCurrentUser());
         mUser = new User("me");
         mUser.save();
 
-        mContacts = (ArrayList) User.all();
         mContactsListView = (ListView) getListView();
-        mAdapter = new ContactsAdapter(this, mContacts);
-        setListAdapter(mAdapter);
 
-        mSelectedSnape = (Snape) getIntent().getSerializableExtra("snape");
-        mSnapeImage.setImageResource(mSelectedSnape.getImageSrc());
-        mNewMessage = new Message(mSelectedSnape, mUser);
+        User.all(new Runnable() {
+            @Override
+            public void run() {
+                mContacts = (ArrayList<User>) User.getAllUsers();
+                mAdapter = new ContactsAdapter(NewMessageActivity.this, mContacts);
+                setListAdapter(mAdapter);
+            }
+        });
+
+        String selectedSnapeId = getIntent().getStringExtra("snapeId");
+        Snape.find(selectedSnapeId, new Runnable() {
+            @Override
+            public void run() {
+                mSelectedSnape = Snape.getSearchedSnape();
+                mSnapeImage.setImageResource(mSelectedSnape.getImageSrc());
+                mNewMessage = new Message(mSelectedSnape, mUser);
+            }
+        });
 
         mSelectContactsButton.setOnClickListener(new View.OnClickListener() {
             @Override

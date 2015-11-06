@@ -7,10 +7,10 @@ import com.activeandroid.query.Select;
 
 import java.util.List;
 
-@Table(name = "Quotes", id = "_id")
+//@Table(name = "Quotes", id = "_id")
 public class Quote extends Model {
 
-    @Column(name = "Text")
+    //@Column(name = "Text")
     private String mText;
 
     public Quote() {
@@ -26,7 +26,7 @@ public class Quote extends Model {
         return mText;
     }
 
-    public static List<Quote> all() {
-        return new Select().from(Quote.class).execute();
-    }
+//    public static List<Quote> all() {
+//        return new Select().from(Quote.class).execute();
+//    }
 }

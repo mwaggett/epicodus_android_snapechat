@@ -4,48 +4,80 @@ import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
 import com.activeandroid.query.Select;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Table(name = "Messages", id = "_id")
-public class Message extends Model {
+//@Table(name = "Messages", id = "_id")
+public class Message {
 
-    @Column(name = "Snape")
+    //@Column(name = "Snape")
     private Snape mSnape;
 
-    @Column(name = "Quote")
+    //@Column(name = "Quote")
     private Quote mQuote;
 
-    @Column(name = "CreatedAt")
-    private long mCreatedAt;
+    //@Column(name = "CreatedAt")
+    private Date mCreatedAt;
 
-    @Column(name = "Sender")
+    //@Column(name = "Sender")
     private User mSender;
 
-    @Column(name = "Receiver")
+    //@Column(name = "Receiver")
     private User mReceiver;
 
-    public Message() {
-        super();
-    }
+    private ParseObject mParseObject;
+    private static List<Message> mAllMessages;
+
+//    public Message() {
+//        super();
+//    }
 
     public Message(Snape snape, User sender) {
-        super();
+//        super();
         mSnape = snape;
         mSender = sender;
-        mCreatedAt = new Date().getTime();
+
+        mParseObject = new ParseObject("Message");
+        mParseObject.put("snape", mSnape); //put ParseObject in instead of Snape..
+        mParseObject.put("sender", mSender);
     }
 
-    public Message(Snape snape, Quote quote, User sender, User receiver) {
-        super();
-        mSnape = snape;
-        mQuote = quote;
-        mCreatedAt = new Date().getTime();
-        mSender = sender;
-        mReceiver = receiver;
+    public Message(ParseObject message) {
+        mSnape = new Snape(message.getParseObject("snape"));
+        mQuote = new Quote(message.getString("quote"));
+        mCreatedAt = message.getCreatedAt();
+        mSender = new User(message.getParseUser("sender"));
+        mReceiver = new User(message.getParseUser("receiver"));
     }
+
+    public void save() {
+        mParseObject.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    mCreatedAt = mParseObject.getCreatedAt();
+                }
+            }
+        });
+    }
+
+//    public Message(Snape snape, Quote quote, User sender, User receiver) {
+//        super();
+//        mSnape = snape;
+//        mQuote = quote;
+//        mCreatedAt = new Date().getTime();
+//        mSender = sender;
+//        mReceiver = receiver;
+//    }
 
     public Snape getSnape() {
         return mSnape;
@@ -63,7 +95,7 @@ public class Message extends Model {
         mQuote = quote;
     }
 
-    public long getCreatedAt() {
+    public Date getCreatedAt() {
         return mCreatedAt;
     }
 
@@ -72,7 +104,7 @@ public class Message extends Model {
         return formatter.format(mCreatedAt);
     }
 
-    public void setCreatedAt(long createdAt) {
+    public void setCreatedAt(Date createdAt) {
         mCreatedAt = createdAt;
     }
 
@@ -92,7 +124,24 @@ public class Message extends Model {
         mReceiver = receiver;
     }
 
-    public static List<Message> all() {
-        return new Select().from(Message.class).execute();
+    public static void all(final Runnable runnable) {
+        mAllMessages = new ArrayList<Message>();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Message");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                if (e == null) {
+                    for (ParseObject object : objects) {
+                        Message newMessage = new Message(object);
+                        mAllMessages.add(newMessage);
+                    }
+                    runnable.run();
+                }
+            }
+        });
+    }
+
+    public static List<Message> getAllMessages() {
+        return mAllMessages;
     }
 }

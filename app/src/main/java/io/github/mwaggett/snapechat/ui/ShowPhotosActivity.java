@@ -1,4 +1,4 @@
-package io.github.mwaggett.snapechat;
+package io.github.mwaggett.snapechat.ui;
 
 import android.content.Intent;
 import android.media.Image;
@@ -10,15 +10,19 @@ import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.Random;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import io.github.mwaggett.snapechat.R;
 import io.github.mwaggett.snapechat.models.Snape;
 import io.github.mwaggett.snapechat.ui.NewMessageActivity;
 
 public class ShowPhotosActivity extends AppCompatActivity {
 
-    private ImageView mImage;
-    private Button mNextButton;
-    private Button mPreviousButton;
-    private Button mRandomButton;
+    @Bind(R.id.currentSnape) ImageView mImage;
+    @Bind(R.id.nextButton) Button mNextButton;
+    @Bind(R.id.previousButton) Button mPreviousButton;
+    @Bind(R.id.randomButton) Button mRandomButton;
+
     private ArrayList<Snape> mSnapeLib;
     private int mClickedSnapePosition;
     private Snape mCurrentSnape;
@@ -27,16 +31,18 @@ public class ShowPhotosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_photos);
+        ButterKnife.bind(this);
 
-        mImage = (ImageView) findViewById(R.id.currentSnape);
-        mNextButton = (Button) findViewById(R.id.nextButton);
-        mPreviousButton = (Button) findViewById(R.id.previousButton);
-        mRandomButton = (Button) findViewById(R.id.randomButton);
-        mSnapeLib = (ArrayList) Snape.all();
-        mClickedSnapePosition = getIntent().getExtras().getInt("selected_snape");
-        mCurrentSnape = mSnapeLib.get(mClickedSnapePosition);
+        Snape.all(new Runnable() {
+            @Override
+            public void run() {
+                mSnapeLib = (ArrayList<Snape>) Snape.getAllSnapes();
+                mClickedSnapePosition = getIntent().getExtras().getInt("selected_snape");
+                mCurrentSnape = mSnapeLib.get(mClickedSnapePosition);
 
-        setLayoutContent();
+                setLayoutContent();
+            }
+        });
 
         mNextButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +84,7 @@ public class ShowPhotosActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ShowPhotosActivity.this, NewMessageActivity.class);
-                intent.putExtra("snape", mCurrentSnape);
+                intent.putExtra("snapeId", mCurrentSnape.getId());
                 startActivity(intent);
             }
         });

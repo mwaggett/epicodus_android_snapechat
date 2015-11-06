@@ -22,9 +22,14 @@ public class ShowMessagesActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_messages);
 
-        mMessages = (ArrayList) Message.all();
-        mAdapter = new MessageAdapter(this, mMessages);
-        setListAdapter(mAdapter);
+        Message.all(new Runnable() {
+            @Override
+            public void run() {
+                mMessages = (ArrayList) Message.getAllMessages();
+                mAdapter = new MessageAdapter(ShowMessagesActivity.this, mMessages);
+                setListAdapter(mAdapter);
+            }
+        });
     }
 
 }
