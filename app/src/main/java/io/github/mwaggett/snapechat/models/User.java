@@ -43,7 +43,11 @@ public class User {
     }
 
     public User(ParseUser user) {
-        mName = user.getUsername();
+        try {
+            mName = user.fetchIfNeeded().getUsername();
+        } catch (ParseException e) {
+            Log.d("HELP", e.getMessage());
+        }
         mId = user.getObjectId();
         mParseUser = user;
     }

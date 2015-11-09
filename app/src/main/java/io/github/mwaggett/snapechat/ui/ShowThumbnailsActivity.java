@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class ShowThumbnailsActivity extends AppCompatActivity {
     ArrayList<Snape> mSnapes;
     ImageAdapter mAdapter;
     @Bind(R.id.gridview) GridView gridview;
+    @Bind(R.id.viewMessagesButton) Button mViewMessagesButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,14 @@ public class ShowThumbnailsActivity extends AppCompatActivity {
                                     int position, long id) {
                 Intent intent = new Intent(ShowThumbnailsActivity.this, ShowPhotosActivity.class);
                 intent.putExtra("selected_snape", position);
+                startActivity(intent);
+            }
+        });
+
+        mViewMessagesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ShowThumbnailsActivity.this, ShowMessagesActivity.class);
                 startActivity(intent);
             }
         });

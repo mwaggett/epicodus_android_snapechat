@@ -22,5 +22,16 @@
         android:layout_height="match_parent"
         android:id="@android:id/list"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/banner"/>
+        android:layout_below="@+id/banner"
+        android:layout_above="@+id/viewThumbnailsButton"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select a Snape"
+        android:id="@+id/viewThumbnailsButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#44a888"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>

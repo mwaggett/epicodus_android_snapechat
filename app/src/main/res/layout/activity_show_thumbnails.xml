@@ -28,5 +28,15 @@
         android:stretchMode="columnWidth"
         android:gravity="center"
               android:layout_below="@+id/sendToBanner"
-              android:layout_alignParentBottom="true"/>
+              android:layout_above="@+id/viewMessagesButton"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Messages"
+        android:id="@+id/viewMessagesButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="#44a888"
+        android:textColor="@android:color/white"/>
 </RelativeLayout>
