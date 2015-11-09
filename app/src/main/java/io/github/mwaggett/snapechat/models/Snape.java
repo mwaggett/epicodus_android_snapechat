@@ -80,6 +80,10 @@ public class Snape implements Serializable {
         return mId;
     }
 
+    public ParseObject getParseObject() {
+        return mParseObject;
+    }
+
     public static List<Snape> getAllSnapes() {
         return mAllSnapes;
     }

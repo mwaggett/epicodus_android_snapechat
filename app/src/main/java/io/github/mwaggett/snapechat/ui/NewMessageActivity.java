@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -34,6 +36,7 @@ public class NewMessageActivity extends ListActivity {
     private ContactsAdapter mAdapter;
     @Bind(R.id.snapeImage) ImageView mSnapeImage;
     @Bind(R.id.selectContactsButton) Button mSelectContactsButton;
+    @Bind(R.id.sendToBanner) TextView mSendToBanner;
     @Bind(R.id.sendButton) Button mSendButton;
 
     @Override
@@ -41,12 +44,25 @@ public class NewMessageActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_message);
         ButterKnife.bind(this);
+        mContactsListView = (ListView) getListView();
 
         //mUser = new User(ParseUser.getCurrentUser());
-        mUser = new User("me");
-        mUser.save();
 
-        mContactsListView = (ListView) getListView();
+        String selectedSnapeId = getIntent().getStringExtra("snapeId");
+        Snape.find(selectedSnapeId, new Runnable() {
+            @Override
+            public void run() {
+                User.find("mVtXrrg6v8", new Runnable() {
+                    @Override
+                    public void run() {
+                        mUser = User.getSearchedUser();
+                        mSelectedSnape = Snape.getSearchedSnape();
+                        mSnapeImage.setImageResource(mSelectedSnape.getImageSrc());
+                        mNewMessage = new Message(mSelectedSnape, mUser);
+                    }
+                });
+            }
+        });
 
         User.all(new Runnable() {
             @Override
@@ -57,19 +73,10 @@ public class NewMessageActivity extends ListActivity {
             }
         });
 
-        String selectedSnapeId = getIntent().getStringExtra("snapeId");
-        Snape.find(selectedSnapeId, new Runnable() {
-            @Override
-            public void run() {
-                mSelectedSnape = Snape.getSearchedSnape();
-                mSnapeImage.setImageResource(mSelectedSnape.getImageSrc());
-                mNewMessage = new Message(mSelectedSnape, mUser);
-            }
-        });
-
         mSelectContactsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mSendToBanner.setVisibility(View.VISIBLE);
                 mContactsListView.setVisibility(View.VISIBLE);
                 mSelectContactsButton.setVisibility(View.INVISIBLE);
             }
@@ -79,6 +86,7 @@ public class NewMessageActivity extends ListActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 mNewMessage.setReceiver(mContacts.get(position));
+                mSendToBanner.setVisibility(View.INVISIBLE);
                 mContactsListView.setVisibility(View.INVISIBLE);
                 mSendButton.setText("Send To " + mNewMessage.getReceiver().getName());
                 mSendButton.setVisibility(View.VISIBLE);
@@ -88,9 +96,14 @@ public class NewMessageActivity extends ListActivity {
         mSendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNewMessage.save();
-                Intent intent = new Intent(NewMessageActivity.this, ShowMessagesActivity.class);
-                startActivity(intent);
+                mNewMessage.save(new Runnable() {
+                    @Override
+                    public void run() {
+                        //Toast.makeText(NewMessageActivity.this, "Sent to " + mNewMessage.getReceiver().getName() + "!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(NewMessageActivity.this, ShowMessagesActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
     }

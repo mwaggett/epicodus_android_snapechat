@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.parse.ParseObject;
 
@@ -28,23 +29,6 @@ public class ShowThumbnailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-//
-////      To populate database with contacts:
-//        User contact1 = new User("Zoe");
-//        contact1.save();
-//        User contact2 = new User("Gracie");
-//        contact2.save();
-//        User contact3 = new User("Cole");
-//        contact3.save();
-//        User contact4 = new User("Katie");
-//        contact4.save();
-//        User contact5 = new User("Hans");
-//        contact5.save();
-//        User contact6 = new User("Annie");
-//        contact6.save();
-//        User contact7 = new User("Justin");
-//        contact7.save();
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_thumbnails);
         ButterKnife.bind(this);
@@ -52,14 +36,9 @@ public class ShowThumbnailsActivity extends AppCompatActivity {
         Snape.all(new Runnable() {
             @Override
             public void run() {
-                Snape.all(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSnapes = (ArrayList<Snape>) Snape.getAllSnapes();
-                        mAdapter = new ImageAdapter(ShowThumbnailsActivity.this, mSnapes);
-                        gridview.setAdapter(mAdapter);
-                    }
-                });
+                mSnapes = (ArrayList<Snape>) Snape.getAllSnapes();
+                mAdapter = new ImageAdapter(ShowThumbnailsActivity.this, mSnapes);
+                gridview.setAdapter(mAdapter);
             }
         });
 

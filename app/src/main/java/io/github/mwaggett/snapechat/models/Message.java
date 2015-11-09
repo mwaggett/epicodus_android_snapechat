@@ -1,5 +1,7 @@
 package io.github.mwaggett.snapechat.models;
 
+import android.util.Log;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -23,7 +25,7 @@ public class Message {
     private Snape mSnape;
 
     //@Column(name = "Quote")
-    private Quote mQuote;
+    //private Quote mQuote;
 
     //@Column(name = "CreatedAt")
     private Date mCreatedAt;
@@ -47,37 +49,31 @@ public class Message {
         mSender = sender;
 
         mParseObject = new ParseObject("Message");
-        mParseObject.put("snape", mSnape); //put ParseObject in instead of Snape..
-        mParseObject.put("sender", mSender);
+        mParseObject.put("snape", mSnape.getParseObject());
+        mParseObject.put("sender", mSender.getParseUser());
     }
 
     public Message(ParseObject message) {
         mSnape = new Snape(message.getParseObject("snape"));
-        mQuote = new Quote(message.getString("quote"));
+        //mQuote = new Quote(message.getString("quote"));
         mCreatedAt = message.getCreatedAt();
         mSender = new User(message.getParseUser("sender"));
         mReceiver = new User(message.getParseUser("receiver"));
     }
 
-    public void save() {
+    public void save(final Runnable runnable) {
         mParseObject.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
                     mCreatedAt = mParseObject.getCreatedAt();
+                    runnable.run();
+                } else {
+                    Log.d("SAVEMESSAGE", e.getMessage());
                 }
             }
         });
     }
-
-//    public Message(Snape snape, Quote quote, User sender, User receiver) {
-//        super();
-//        mSnape = snape;
-//        mQuote = quote;
-//        mCreatedAt = new Date().getTime();
-//        mSender = sender;
-//        mReceiver = receiver;
-//    }
 
     public Snape getSnape() {
         return mSnape;
@@ -87,13 +83,14 @@ public class Message {
         mSnape = snape;
     }
 
-    public Quote getQuote() {
-        return mQuote;
-    }
+//    public Quote getQuote() {
+//        return mQuote;
+//    }
 
-    public void setQuote(Quote quote) {
-        mQuote = quote;
-    }
+//    public void setQuote(Quote quote) {
+//        mQuote = quote;
+//        //mParseObject.put("quote", mQuote.getParseObject());
+//    }
 
     public Date getCreatedAt() {
         return mCreatedAt;
@@ -114,6 +111,7 @@ public class Message {
 
     public void setSender(User sender) {
         mSender = sender;
+        mParseObject.put("sender", mSender.getParseUser());
     }
 
     public User getReceiver() {
@@ -122,6 +120,11 @@ public class Message {
 
     public void setReceiver(User receiver) {
         mReceiver = receiver;
+        mParseObject.put("receiver", mReceiver.getParseUser());
+    }
+
+    public ParseObject getParseObject() {
+        return mParseObject;
     }
 
     public static void all(final Runnable runnable) {
