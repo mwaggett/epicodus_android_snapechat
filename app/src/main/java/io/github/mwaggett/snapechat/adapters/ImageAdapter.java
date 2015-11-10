@@ -6,11 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import io.github.mwaggett.snapechat.R;
 import io.github.mwaggett.snapechat.models.Snape;
 
 public class ImageAdapter extends BaseAdapter {

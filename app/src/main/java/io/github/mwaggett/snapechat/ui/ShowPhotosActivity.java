@@ -1,7 +1,6 @@
 package io.github.mwaggett.snapechat.ui;
 
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,12 +8,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.Random;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.mwaggett.snapechat.R;
 import io.github.mwaggett.snapechat.models.Snape;
-import io.github.mwaggett.snapechat.ui.NewMessageActivity;
 
 public class ShowPhotosActivity extends AppCompatActivity {
 

@@ -8,19 +8,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
-
-import com.parse.ParseObject;
 import com.parse.ParseUser;
-
 import java.util.ArrayList;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.github.mwaggett.snapechat.R;
 import io.github.mwaggett.snapechat.adapters.ImageAdapter;
 import io.github.mwaggett.snapechat.models.Snape;
-import io.github.mwaggett.snapechat.models.User;
 
 public class ShowThumbnailsActivity extends AppCompatActivity {
 

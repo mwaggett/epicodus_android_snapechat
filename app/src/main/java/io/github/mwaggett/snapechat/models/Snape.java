@@ -1,16 +1,15 @@
 package io.github.mwaggett.snapechat.models;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
+//import com.activeandroid.Model;
+//import com.activeandroid.annotation.Column;
+//import com.activeandroid.annotation.Table;
+//import com.activeandroid.query.Select;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

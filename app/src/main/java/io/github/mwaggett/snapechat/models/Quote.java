@@ -1,14 +1,12 @@
 package io.github.mwaggett.snapechat.models;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
-
-import java.util.List;
+//import com.activeandroid.Model;
+//import com.activeandroid.annotation.Column;
+//import com.activeandroid.annotation.Table;
+//import com.activeandroid.query.Select;
 
 //@Table(name = "Quotes", id = "_id")
-public class Quote extends Model {
+public class Quote {
 
     //@Column(name = "Text")
     private String mText;
@@ -26,7 +24,4 @@ public class Quote extends Model {
         return mText;
     }
 
-//    public static List<Quote> all() {
-//        return new Select().from(Quote.class).execute();
-//    }
 }

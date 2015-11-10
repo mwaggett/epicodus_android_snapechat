@@ -2,18 +2,16 @@ package io.github.mwaggett.snapechat.models;
 
 import android.util.Log;
 
-import com.activeandroid.Model;
-import com.activeandroid.annotation.Column;
-import com.activeandroid.annotation.Table;
-import com.activeandroid.query.Select;
+//import com.activeandroid.Model;
+//import com.activeandroid.annotation.Column;
+//import com.activeandroid.annotation.Table;
+//import com.activeandroid.query.Select;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,13 +94,6 @@ public class User {
                     for (ParseUser user : users) {
                         User existingUser = new User(user);
                         mAllUsers.add(existingUser);
-//                        find(user.getObjectId(), new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                User existingUser = getSearchedUser();
-//                                mAllUsers.add(existingUser);
-//                            }
-//                        });
                     }
                     runnable.run();
                 }
@@ -130,12 +121,4 @@ public class User {
     public static User getSearchedUser() {
         return searchedUser;
     }
-//
-//    public List<Message> sentMessages() {
-//        return getMany(Message.class, "Sender");
-//    }
-//
-//    public List<Message> receivedMessages() {
-//        return getMany(Message.class, "Receiver");
-//    }
 }
