@@ -68,8 +68,6 @@ public class Message {
                 if (e == null) {
                     mCreatedAt = mParseObject.getCreatedAt();
                     runnable.run();
-                } else {
-                    Log.d("SAVEMESSAGE", e.getMessage());
                 }
             }
         });

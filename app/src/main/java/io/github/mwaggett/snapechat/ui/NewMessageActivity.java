@@ -46,21 +46,21 @@ public class NewMessageActivity extends ListActivity {
         ButterKnife.bind(this);
         mContactsListView = (ListView) getListView();
 
-        //mUser = new User(ParseUser.getCurrentUser());
+        mUser = new User(ParseUser.getCurrentUser());
 
         String selectedSnapeId = getIntent().getStringExtra("snapeId");
         Snape.find(selectedSnapeId, new Runnable() {
             @Override
             public void run() {
-                User.find("mVtXrrg6v8", new Runnable() {
-                    @Override
-                    public void run() {
-                        mUser = User.getSearchedUser();
+                //User.find("mVtXrrg6v8", new Runnable() {
+                    //@Override
+                    //public void run() {
+                        //mUser = User.getSearchedUser();
                         mSelectedSnape = Snape.getSearchedSnape();
                         mSnapeImage.setImageResource(mSelectedSnape.getImageSrc());
                         mNewMessage = new Message(mSelectedSnape, mUser);
-                    }
-                });
+                    //}
+                //});
             }
         });
 

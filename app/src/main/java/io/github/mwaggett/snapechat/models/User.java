@@ -33,9 +33,9 @@ public class User {
 //        super();
 //    }
 
-    public User(String name) {
+    public User(String name, String password) {
         mName = name;
-        mPassword = "12345"; //obvi to be changed later
+        mPassword = password;
 
         mParseUser = new ParseUser();
         mParseUser.setUsername(mName);
@@ -52,12 +52,15 @@ public class User {
         mParseUser = user;
     }
 
-    public void save() {
+    public void save(final Runnable successRunnable, final Runnable failureRunnable) {
         mParseUser.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
                     mId = mParseUser.getObjectId();
+                    successRunnable.run();
+                } else {
+                    failureRunnable.run();
                 }
             }
         });
