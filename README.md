@@ -7,7 +7,7 @@
 ## Description
 
 This app is just like Snapchat, only you can only send pictures of Snape (from Harry Potter).
-**_In its current state, this app has a preprogrammed set of "contacts" and messages may not actually be sent yet. _**
+**_In its current state, this app has a preprogrammed set of "contacts" and messages may not actually be sent yet._**
 
 ## Setup
 
