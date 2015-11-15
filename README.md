@@ -1,13 +1,13 @@
 # Snapechat ~IN PROGRESS~
 
-##### _Android Independent Project for Epicodus, 29 October 2015_
+##### _Android Independent Project for Epicodus, 9 November 2015_
 
 #### By Molly Waggett
 
 ## Description
 
 This app is just like Snapchat, only you can only send pictures of Snape (from Harry Potter).
-**_In its current state, this app displays thumbnails of Snape images that the user may click to enlarge._**
+**_In its current state, this app has a preprogrammed set of "contacts" and messages may not actually be sent yet. _**
 
 ## Setup
 
@@ -21,7 +21,7 @@ This app is just like Snapchat, only you can only send pictures of Snape (from H
 
 * Java
 * Android SDK for Android Studio
-* Active Android
+* Parse
 * Gradle
 
 ### Legal
